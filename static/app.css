@@ -1,0 +1,247 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #4f46e5, #9333ea);
+    background-attachment: fixed;
+    color: #111827;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 40px;
+    background: rgba(255, 255, 255, 0.12);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.brand {
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.nav-link {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 18px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.container {
+    max-width: 960px;
+    margin: 32px auto;
+    padding: 0 20px;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    margin-bottom: 24px;
+}
+
+.card h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 18px;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat .label {
+    color: #6b7280;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.stat .amount {
+    font-size: 42px;
+    font-weight: 700;
+    color: #4f46e5;
+}
+
+.add-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+}
+
+.add-grid input,
+.edit-grid input {
+    padding: 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+}
+
+.add-grid input:focus,
+.edit-grid input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.btn {
+    padding: 14px 20px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #4f46e5, #7c3aed);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
+}
+
+.btn:hover {
+    opacity: 0.92;
+}
+
+.btn-danger {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 10px;
+    background: #fee2e2;
+    color: #b91c1c;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.btn-danger:hover {
+    background: #fecaca;
+}
+
+.btn-edit {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 10px;
+    background: #e0e7ff;
+    color: #4338ca;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.btn-edit:hover {
+    background: #c7d2fe;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #6b7280;
+    padding: 12px;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+td {
+    padding: 14px 12px;
+    border-bottom: 1px solid #f3f4f6;
+    font-size: 15px;
+}
+
+tr:hover td {
+    background: #f9fafb;
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.actions form {
+    margin: 0;
+}
+
+.empty {
+    text-align: center;
+    color: #6b7280;
+    padding: 24px;
+}
+
+.chart-box {
+    max-width: 360px;
+    margin: 0 auto;
+}
+
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.edit-form label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #374151;
+    margin-bottom: 6px;
+}
+
+.edit-form input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+}
+
+.edit-form input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.form-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.btn-cancel {
+    color: #6b7280;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.btn-cancel:hover {
+    color: #111827;
+}

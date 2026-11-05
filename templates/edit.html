@@ -1,20 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Edit Expense</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
 </head>
 <body>
-    <h1>Edit Expense</h1>
+    <div class="navbar">
+        <div class="brand">💰 ExpenseTracker</div>
+        <a class="nav-link" href="/logout">Logout</a>
+    </div>
 
-    <form action="/update/{{ index }}" method="POST" class="add-form">
-        <input type="number" step="0.01" name="amount" value="{{ expense['amount'] }}" required>
-        <input type="text" name="category" value="{{ expense['category'] }}" required>
-        <input type="text" name="note" value="{{ expense['note'] }}">
-        <input type="date" name="date" value="{{ expense.get('date', '') }}" required>
-        <button type="submit">Save</button>
-    </form>
+    <div class="container" style="max-width: 640px;">
+        <div class="card">
+            <h2>Edit Expense</h2>
 
-    <p><a href="/">Cancel</a></p>
+            <form action="/update/{{ index }}" method="POST" class="edit-form">
+                <div>
+                    <label for="amount">Amount</label>
+                    <input type="number" step="0.01" id="amount" name="amount" value="{{ expense['amount'] }}" required>
+                </div>
+
+                <div>
+                    <label for="category">Category</label>
+                    <input type="text" id="category" name="category" value="{{ expense['category'] }}" required>
+                </div>
+
+                <div>
+                    <label for="note">Note</label>
+                    <input type="text" id="note" name="note" value="{{ expense['note'] or '' }}">
+                </div>
+
+                <div>
+                    <label for="date">Date</label>
+                    <input type="date" id="date" name="date" value="{{ expense['date'] or '' }}" required>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn">Save Changes</button>
+                    <a class="btn-cancel" href="/">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

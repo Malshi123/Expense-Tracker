@@ -1,91 +1,104 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Expense Tracker</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <h1>My Expenses</h1>
-    <p><a href="/logout">Logout</a></p>
-
-    <h2>Add Expense</h2>
-    <form action="/add" method="POST" class="add-form">
-        <input type="number" step="0.01" name="amount" placeholder="Amount" required>
-        <input type="text" name="category" placeholder="Category" required>
-        <input type="text" name="note" placeholder="Note" required>
-        <input type="date" name="date" required>    
-        <button type="submit">Add</button> 
-    </form>
-
-    <h2>All Expenses</h2>
-
-    <table border="1" cellpadding="8">
-        <tr>
-            <th>#</th>
-            <th>Amount</th>
-            <th>Category</th>
-            <th>Note</th>
-            <th>Date</th>
-            <th>Action</th>
-        </tr>
-        {% for e in expenses %}
-        <tr>
-            <td>{{ loop.index }}</td>
-            <td>{{ e["amount"] }}</td>
-            <td>{{ e["category"] }}</td>
-            <td>{{ e["note"] }}</td>
-            <td>{{ e.get("date","-") }}</td>
-
-            <td>
-                <a href="/edit/{{ e['id'] }}">Edit</a>
-                <form action="/delete/{{e['id']}}" method="POST" style="display:inline;">
-                    <button type="submit" class="delete-btn">Delete</button>
-                </form> 
-            </td>
-
-        </tr>
-        {% endfor %}
-    </table>
-
-    <h3 class="total">Total: {{ total }}</h3>
-
-    <h2>Spending by Category</h2>
-    <table>
-        <tr>
-            <th>Category</th>
-            <th>Total Amount</th>
-        </tr>
-
-        {% for category, amount in category_totals.items() %}
-        <tr>
-            <td>{{ category }}</td>
-            <td>{{ amount }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-    
-    <h2>Spending Chart</h2>
-    <div style="max-width: 400px; margin: auto;">
-        <canvas id="categoryChart"></canvas>
+    <div class="navbar">
+        <div class="brand">💰 ExpenseTracker</div>
+        <a class="nav-link" href="/logout">Logout</a>
     </div>
 
+    <div class="container">
+
+        <div class="card stat">
+            <div class="label">Total Spent</div>
+            <div class="amount">{{ '%.2f'|format(total) }}</div>
+        </div>
+
+        <div class="card">
+            <h2>Add Expense</h2>
+            <form action="/add" method="POST" class="add-grid">
+                <input type="number" step="0.01" name="amount" placeholder="Amount" required>
+                <input type="text" name="category" placeholder="Category" required>
+                <input type="text" name="note" placeholder="Note">
+                <input type="date" name="date" required>
+                <button type="submit" class="btn">Add</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>All Expenses</h2>
+            {% if expenses %}
+            <div class="table-wrap">
+                <table>
+                    <tr>
+                        <th>#</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Category</th>
+                        <th>Note</th>
+                        <th>Action</th>
+                    </tr>
+                    {% for e in expenses %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ e['date'] or '-' }}</td>
+                        <td>{{ '%.2f'|format(e['amount']) }}</td>
+                        <td>{{ e['category'] }}</td>
+                        <td>{{ e['note'] or '' }}</td>
+                        <td>
+                            <div class="actions">
+                                <a class="btn-edit" href="/edit/{{ e['id'] }}">Edit</a>
+                                <form action="/delete/{{ e['id'] }}" method="POST" onsubmit="return confirm('Delete this expense?');">
+                                    <button type="submit" class="btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {% else %}
+            <p class="empty">No expenses yet. Add your first one above.</p>
+            {% endif %}
+        </div>
+
+        {% if category_totals %}
+        <div class="card">
+            <h2>Spending by Category</h2>
+            <div class="chart-box">
+                <canvas id="categoryChart"></canvas>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+
+    {% if category_totals %}
     <script>
-        const labels = {{ category_totals.keys() | list | tojson }}; 
-        const values = {{category_totals.values() |list | tojson }};
+        const labels = {{ category_totals.keys() | list | tojson }};
+        const values = {{ category_totals.values() | list | tojson }};
 
-        const ctx = document.getElementById("categoryChart");
-
-        new Chart(ctx, {
-            type: "pie",
+        new Chart(document.getElementById("categoryChart"), {
+            type: "doughnut",
             data: {
                 labels: labels,
                 datasets: [{
-                    data: values
+                    data: values,
+                    backgroundColor: ["#6366f1", "#a855f7", "#ec4899", "#f59e0b", "#10b981", "#3b82f6", "#ef4444"]
                 }]
+            },
+            options: {
+                plugins: { legend: { position: "bottom" } }
             }
         });
     </script>
-
+    {% endif %}
 </body>
 </html>
