@@ -1,21 +1,23 @@
 import json
-from multiprocessing import connection
 import os
 from flask import Flask, render_template, request, redirect, session
 import mysql.connector
 from werkzeug.security import generate_password_hash, check_password_hash
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = "change-this-to-a-long-random-text"
+app.secret_key = os.environ["SECRET_KEY"]
 
 FILE_NAME = os.path.join(os.path.dirname(os.path.abspath(__file__)),"expenses.json")
 
 def get_db():
     return mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",    
-        database="Expense_tracker"
+        host=os.environ["DB_HOST"],
+        user=os.environ["DB_USER"],
+        password=os.environ["DB_PASSWORD"],
+        database=os.environ["DB_NAME"]
     )
 
 def load_expenses():
