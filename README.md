@@ -2,6 +2,11 @@
 
 A multi-user expense tracking web app built with Flask and MySQL. Each user registers an account and manages their own expenses.
 
+## Screenshots
+
+![Login page](screenshots/login.png)
+![Dashboard](screenshots/dashboard.png)
+
 ## Features
 
 - Register, login and logout (passwords are stored as hashes)
